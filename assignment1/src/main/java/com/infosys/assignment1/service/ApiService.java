@@ -1,10 +1,6 @@
 package com.infosys.assignment1.service;
 
-import java.util.List;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
-
-import javax.swing.event.ListSelectionEvent;
 
 import org.springframework.stereotype.Service;
 
@@ -33,7 +29,7 @@ public class ApiService implements ApiInterface{
 			for(String i:words) {
 				reversedString =reversedString + " "+ new StringBuffer(i).reverse();
 			}
-			return reversedString;
+			return reversedString.strip();
 		}
 
 		@Override

@@ -1,10 +1,14 @@
 package com.infosys.assignment1.service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.infosys.assignment1.dto.ArrayDTO;
 
 @Service
 public class ApiService implements ApiInterface{
@@ -24,37 +28,38 @@ public class ApiService implements ApiInterface{
 		}
 		
 		public String reverseWords(String s) {
+			
 			String[] words = s.split(" ");
-			String reversedString = "";
+			StringBuilder reversedString = new StringBuilder();
 			for(String i:words) {
-				reversedString =reversedString + " "+ new StringBuffer(i).reverse();
+				reversedString.append(new StringBuffer(i).reverse()+" ");
 			}
-			return reversedString.strip();
+			return reversedString.toString().strip();
 		}
 
 		@Override
 		public String triangleType(Integer a, Integer b, Integer c) {
-			if(a==b && b==c && a == c)
+			if(a.equals(b) && b.equals(c))
 				return "Equilateral";
-			else if((a==b && a!=c) || (a==c && a!=b) || (b == c && a!=b))
-				return "Scalene";
-			return "Isosceles";
+			else if(a.equals(b) || b.equals(c) || a.equals(c))
+				return "Isosceles";
+			return "Scalene";
 		}
 
 		@Override
-		public Integer[] makeOneArray(ArrayDTO arrayDTO) {
-			// TODO Auto-generated method stub
-			TreeSet<Integer> set = new TreeSet<>();
-			for (Integer integer : arrayDTO.getArray1()) {
-				set.add(integer);
-			}
-			for (Integer integer : arrayDTO.getArray2()) {
-				set.add(integer);
-			}
-			for (Integer integer : arrayDTO.getArray3()) {
-				set.add(integer);
-			}
-			return set.stream().toArray(Integer[] ::new);
+		public List<Integer> makeOneArray(LinkedHashMap<String, ArrayList<Integer>> a) {
+			
+//			TreeSet<Integer> set = new TreeSet<>();
+//			for(ArrayList<Integer> array:a.values()) {
+//				for(Integer i:array) {
+//					set.add(i);
+//				}
+//			}
+//			return set.stream().collect(Collectors.toList());
+			return a.values().stream().flatMap(Collection::stream).distinct().sorted().collect(Collectors.toList());
+			 
+			
 		}
+
 		
 }

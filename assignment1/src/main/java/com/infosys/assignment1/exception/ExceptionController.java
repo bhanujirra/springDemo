@@ -20,8 +20,10 @@ public class ExceptionController {
 	private Environment environment;
 	
 	@ExceptionHandler(Exception.class)
-	public String exceptionHandler(Exception ex) {
-		return ex.getMessage();
+	public ResponseEntity<ErrorMessage> exceptionHandler(Exception ex) {
+		ErrorMessage error = new ErrorMessage();
+		error.setMessage(ex.getMessage());
+		return new ResponseEntity<>(error, HttpStatus.OK);
 	}
 	
 	@ExceptionHandler(AssignmentException.class)

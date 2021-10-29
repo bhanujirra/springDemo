@@ -1,33 +1,39 @@
 package com.infosys.assignment1.service;
 
-import java.util.ArrayList;
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 
+
 @Service
 public class ApiService implements ApiInterface{
-		public Integer fibonacci(Integer n) {
-			int a = 0;
-			int b = 1;
-			if(n==1) return 0;
-			if(n==2) return 1;
+		public BigInteger fibonacci(Integer n) {
+			if(n<0) {
+				return BigInteger.valueOf(0);
+			}
+			
+			if(n == 1 || n == 2) return BigInteger.valueOf(1);
+			
+			BigInteger a = BigInteger.valueOf(1);
+			BigInteger b = BigInteger.valueOf(1);
 			
 			while(n > 2) {
-				int temp = a;
+				BigInteger temp = a;
 				a = b;
-				b = b+temp;
+				b = b.add(temp);
 				n--;
 			}
+			
 			return b;
 		}
 		
 		public String reverseWords(String s) {
+			
 			
 			String[] words = s.split(" ");
 			StringBuilder reversedString = new StringBuilder();
@@ -38,7 +44,11 @@ public class ApiService implements ApiInterface{
 		}
 
 		@Override
-		public String triangleType(Integer a, Integer b, Integer c) {
+		public String triangleType(Integer a, Integer b, Integer c){
+			if((a<=0 || b<=0 || c<=0) || ((a+b)<c || (a+c)<b ||(b+c)<a)) {
+				return "";
+			}
+			
 			if(a.equals(b) && b.equals(c))
 				return "Equilateral";
 			else if(a.equals(b) || b.equals(c) || a.equals(c))
@@ -47,18 +57,14 @@ public class ApiService implements ApiInterface{
 		}
 
 		@Override
-		public List<Integer> makeOneArray(LinkedHashMap<String, ArrayList<Integer>> a) {
+		public LinkedHashMap<String, List<Integer>> makeOneArray(LinkedHashMap<String, List<Integer>> a) {
 			
-//			TreeSet<Integer> set = new TreeSet<>();
-//			for(ArrayList<Integer> array:a.values()) {
-//				for(Integer i:array) {
-//					set.add(i);
-//				}
-//			}
-//			return set.stream().collect(Collectors.toList());
-			return a.values().stream().flatMap(Collection::stream).distinct().sorted().collect(Collectors.toList());
+			LinkedHashMap<String, List<Integer>> result = new LinkedHashMap<>();
+			
+			List<Integer> resList =a.values().stream().flatMap(Collection::stream).distinct().sorted().collect(Collectors.toList());
 			 
-			
+			result.put("Array", resList);
+			return result;
 		}
 
 		

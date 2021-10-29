@@ -3,12 +3,16 @@ package com.infosys.assignment1.service;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.mockito.InjectMocks;
+
+import com.infosys.assignment1.exception.AssignmentException;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,26 +30,25 @@ public class ApiServiceTest{
 	
 	@Test
 	public void testFibonacci() {
-		Integer x =6;
-		Integer res = apiService.fibonacci(x);
+		Integer x =5;
+		BigInteger res = apiService.fibonacci(x);
 		assertNotNull(res);
 		
-		Integer y = 5;
-		assertEquals(res,y);
+		assertEquals(res, BigInteger.valueOf(5));
 	}
 	
 	@Test
 	public void testFibonacci1() {
-		Integer res = apiService.fibonacci(1);
+		BigInteger res = apiService.fibonacci(1);
 		assertNotNull(res);
-		assertEquals(res,Integer.valueOf(0));
+		assertEquals(res, new BigInteger("1"));
 	}
 	
 	@Test
 	public void testFibonacci2() {
-		Integer res = apiService.fibonacci(2);
+		BigInteger res = apiService.fibonacci(2);
 		assertNotNull(res);
-		assertEquals(res,Integer.valueOf(1));
+		assertEquals(res, new BigInteger("1"));
 	}
 	
 	@Test
@@ -83,13 +86,15 @@ public class ApiServiceTest{
 	
 	@Test
 	public void testMakeOneArray() {
-		LinkedHashMap<String, ArrayList<Integer>> a= new LinkedHashMap<>();
+		LinkedHashMap<String, List<Integer>> a= new LinkedHashMap<>();
 		a.put("Array1", new ArrayList<>(Arrays.asList(1,2,3)));
 		a.put("Array2", new ArrayList<>(Arrays.asList(1,5,3,6)));
-		List<Integer> res = apiService.makeOneArray(a);
+		LinkedHashMap<String, List<Integer>> res =  apiService.makeOneArray(a);
 		assertNotNull(res);
 	    List<Integer> x = new ArrayList<>(Arrays.asList(1,2,3,5,6));
-		assertEquals(res,x);
+	    LinkedHashMap<String, List<Integer>> expected =new LinkedHashMap<>();
+	    expected.put("Array", x);
+		assertEquals(res,expected);
 	}
 	
 	

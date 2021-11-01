@@ -61,7 +61,7 @@ public class ApiServiceTest{
 	
 	@Test
 	public void testTriangleType() {
-		Integer a = 3, b = 3, c = 3;
+		Double a = 3.0, b = 3.0, c = 3.0;
 		String res = apiService.triangleType(a,b,c);
 		assertNotNull(res);
 		String x="Equilateral";
@@ -70,7 +70,7 @@ public class ApiServiceTest{
 	
 	@Test
 	public void testTriangleType1() {
-		String res = apiService.triangleType(1,2,3);
+		String res = apiService.triangleType(1.0,2.2,3.1);
 		assertNotNull(res);
 		String x="Scalene";
 		assertEquals(res,x);
@@ -78,7 +78,7 @@ public class ApiServiceTest{
 	
 	@Test
 	public void testTriangleType2() {
-		String res = apiService.triangleType(2,2,3);
+		String res = apiService.triangleType(2.2,2.2,3.0);
 		assertNotNull(res);
 		String x="Isosceles";
 		assertEquals(res,x);

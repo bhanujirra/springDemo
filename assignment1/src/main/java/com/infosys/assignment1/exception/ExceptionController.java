@@ -23,14 +23,14 @@ public class ExceptionController {
 	public ResponseEntity<ErrorMessage> exceptionHandler(Exception ex) {
 		ErrorMessage error = new ErrorMessage();
 		error.setMessage(ex.getMessage());
-		return new ResponseEntity<>(error, HttpStatus.OK);
+		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	}
 	
 	@ExceptionHandler(AssignmentException.class)
 	public ResponseEntity<ErrorMessage> exceptionHandler(AssignmentException e) {
 		ErrorMessage error = new ErrorMessage();
 		error.setMessage(environment.getProperty(e.getMessage()));
-		return new ResponseEntity<>(error, HttpStatus.OK);
+		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	}
 
 }

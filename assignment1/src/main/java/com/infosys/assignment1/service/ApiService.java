@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ApiService implements ApiInterface{
 		public BigInteger fibonacci(Integer n) {
-			if(n<0) {
+			if(n<=0) {
 				return BigInteger.valueOf(0);
 			}
 			
@@ -40,11 +40,12 @@ public class ApiService implements ApiInterface{
 			for(String i:words) {
 				reversedString.append(new StringBuffer(i).reverse()+" ");
 			}
-			return reversedString.toString().strip();
+			reversedString.deleteCharAt(reversedString.length()-1);
+			return reversedString.toString();
 		}
 
 		@Override
-		public String triangleType(Integer a, Integer b, Integer c){
+		public String triangleType(Double a, Double b, Double c){
 			if((a<=0 || b<=0 || c<=0) || ((a+b)<c || (a+c)<b ||(b+c)<a)) {
 				return "";
 			}

@@ -47,21 +47,24 @@ public class ApiRestController {
 	}
 	
 	@GetMapping(value = "/ReverseWords", produces = "application/json")
-	public ResponseEntity<String> reverseWords(@RequestHeader MultiValueMap<String, String> header, @RequestParam("sentence") String s){
+	public ResponseEntity<String> reverseWords(@RequestHeader MultiValueMap<String, String> header, @RequestParam("sentence") String s) throws AssignmentException{
 		String revesedSentence = apiService.reverseWords(s);
+		if(s.isEmpty()) {
+			throw new AssignmentException("empty.string");
+		}
 		
 		return new ResponseEntity<>(revesedSentence,header, HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/TriangleType", produces = "application/json")
 	public ResponseEntity<String> triangleType(@RequestHeader MultiValueMap<String, String> header, @RequestParam("a") Object a, @RequestParam("b") Object b, @RequestParam("c") Object c) throws AssignmentException{
-		Integer a1;
-		Integer b1;
-		Integer c1;
+		Double a1;
+		Double b1;
+		Double c1;
 		try {
-			a1 = Integer.parseInt(a.toString());
-			b1 = Integer.parseInt(b.toString());
-			c1 = Integer.parseInt(c.toString());	
+			a1 = Double.parseDouble(a.toString());
+			b1 = Double.parseDouble(b.toString());
+			c1 = Double.parseDouble(c.toString());	
 		}
 		catch (Exception e) {
 			throw new AssignmentException("number.decimal");

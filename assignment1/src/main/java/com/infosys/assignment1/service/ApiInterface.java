@@ -9,7 +9,7 @@ public interface ApiInterface{
 
 	String reverseWords(String s);
 
-	String triangleType(Integer a, Integer b, Integer c);
+	String triangleType(Double a, Double b, Double c);
 
 	LinkedHashMap<String, List<Integer>> makeOneArray(LinkedHashMap<String, List<Integer>> a);
 
